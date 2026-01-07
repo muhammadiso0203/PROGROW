@@ -1,0 +1,32 @@
+name: Deploy Frontend 🚀
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Frontend via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            cd /root/frontend/PROGROW
+
+            git pull origin main
+
+            npm install --force
+
+            npm run build
+
+            cp -r dist/* /var/www/streak.uz/
+
+            systemctl reload nginx

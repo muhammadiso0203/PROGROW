@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const request = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || "https://streak.uz/docs", 
+    baseURL: import.meta.env.VITE_API_URL || "https://streak.uz", 
     headers: {
         "Content-Type": "application/json",
     },
